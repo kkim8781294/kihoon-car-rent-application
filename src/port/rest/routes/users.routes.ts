@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import { UserModel } from '../../../infrastructure/mongodb/models/users';
+import { UserModel } from '../../../infrastructure/mongodb/models/User';
 import { signAccess, signRefresh, verifyRefresh } from '../../../lib/jwt';
-import { requireAuth } from '../../../middleware/auth';
+import { requireAuth } from '../../../middleware/authentication';
 
 const router = Router();
 let refreshStore: string[] = [];

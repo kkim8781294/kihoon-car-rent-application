@@ -1,10 +1,9 @@
 import app from './app';
 import { connectMongo } from './infrastructure/mongodb/mongoDbConnection';
 import { ENV } from './config/config';
-import { seedInitialUsers } from './infrastructure/mongodb/seedUser';
+
 
 connectMongo()
-.then(() => seedInitialUsers())
 .then(() => {
     app.listen(ENV.PORT, () => {
         console.log(JSON.stringify({ level: 'info', event: 'server.started', port: ENV.PORT }));
