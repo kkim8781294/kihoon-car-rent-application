@@ -1,11 +1,17 @@
 /** @type {import('jest').Config} */
 module.exports = {
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   roots: ['<rootDir>/tests'],
-  // ✅ 커버리지 80% 맞추기 쉽게 core만 포함 (컨트롤러는 제외)
-  collectCoverageFrom: ["src/core/**/*.{ts,tsx}"],
+  moduleFileExtensions: ['ts', 'js'],
+
+  globals: { 'ts-jest': { useESM: true } },
+
+  collectCoverageFrom: [
+    'src/core/**/*.{ts,tsx}',
+    'src/middleware/authentication.ts'
+  ],
   coverageThreshold: {
-    global: { statements: 80, branches: 70, functions: 80, lines: 80 }
+    global: { statements: 80, branches: 80, functions: 80, lines: 80 }
   }
 };
