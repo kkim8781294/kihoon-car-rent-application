@@ -7,10 +7,10 @@ export async function seedInitialCars() {
   ];
   for (const c of cars) {
     await CarModel.updateOne(
-      { model: c.model, type: c.type, year: c.year }, // ✅ year 포함해 동일 차량 판별
+      { model: c.model, type: c.type, year: c.year }, 
       { $setOnInsert: c },
       { upsert: true }
     );
   }
-  console.log('[seed] cars ensured');
+  console.log('Seed cars ensured');
 }

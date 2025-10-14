@@ -10,15 +10,16 @@ declare global {
   }
 }
 
-// 토큰이 있으면 req.user 세팅(게스트 허용)
 export function userFromToken(req: Request, _res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(" ")[1];
   if (token) {
     try {
+
+      // handle quest and uiser
       req.user = jwt.verify(token, env.JWT_ACCESS_SECRET) as any;
-      console.log("[auth] userFromToken ok", req.user);
+      console.log("Authentication: verified", req.user);
     } catch {
-      console.log("[auth] invalid token"); // 게스트
+      console.log("Authentication: invalid token");
     }
   }
   next();
@@ -26,16 +27,16 @@ export function userFromToken(req: Request, _res: Response, next: NextFunction) 
 
 export function requireLogin(req: Request, res: Response, next: NextFunction) {
   if (!req.user) {
-    console.log("[auth] requireLogin fail");
-    return res.status(401).json({ error: "로그인이 필요합니다." });
+    console.log("Authentication: requireLogin fail");
+    return res.status(401).json({ error: "login-in necessary" });
   }
   next();
 }
 
 export function requireAdmin(req: Request, res: Response, next: NextFunction) {
   if (!req.user || req.user.role !== "admin") {
-    console.log("[auth] requireAdmin fail", req.user);
-    return res.status(403).json({ error: "관리자 권한이 필요합니다." });
+    console.log("Authentication: Admin fail", req.user);
+    return res.status(403).json({ error: "need!!! admin auth" });
   }
   next();
 }

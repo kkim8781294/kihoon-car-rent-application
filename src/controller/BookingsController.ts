@@ -1,11 +1,11 @@
-import { MongoCarRepo } from "../infrastructure/mongodb/repositories/CarRepo";
-import { MongoBookingRepo } from "../infrastructure/mongodb/repositories/BookingRepo";
+import { CarRepository } from "../infrastructure/mongodb/repositories/CarRepo";
+import { BookingRepository } from "../infrastructure/mongodb/repositories/BookingRepo";
 import { CheckCarAvailability } from "../core/usecases/CheckCarAvailability";
 import { BookCar } from "../core/usecases/BookCar";
 import { ListBooking } from "../core/usecases/ListBooking";
 
-const carRepo = MongoCarRepo();
-const bookingRepo = MongoBookingRepo();
+const carRepo = CarRepository();
+const bookingRepo = BookingRepository();
 const runAvailability = CheckCarAvailability({ carRepo, bookingRepo });
 const runCreate = BookCar({ carRepo, bookingRepo });
 const runListMy = ListBooking({ bookingRepo });

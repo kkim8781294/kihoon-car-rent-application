@@ -35,7 +35,7 @@ export class UsersController {
       if (!loggedIn_user || loggedIn_user.password !== password) 
         return res.status(401).json({ error: "Check id and pass" });
       
-      const accessToken = jwt.sign({ sub: loggedIn_user.id, role: loggedIn_user.role }, env.JWT_ACCESS_SECRET, { expiresIn: "15m" });
+      const accessToken = jwt.sign({ sub: loggedIn_user.id, role: loggedIn_user.role }, env.JWT_ACCESS_SECRET, { expiresIn: "7d" });
       const refreshToken = jwt.sign({ sub: loggedIn_user.id, role: loggedIn_user.role }, env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
       console.log("User Controller: Logged In", userId);
       res.status(201).json({ success: true, message :"User Logged In!", data:{accessToken, refreshToken,loggedIn_user}  });
