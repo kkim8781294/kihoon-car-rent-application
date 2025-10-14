@@ -2,11 +2,11 @@ import { BookingRepo } from "../../../core/methodRepository";
 import { BookingModel } from "../../mongodb/models/Booking";
 import { parseISO } from "date-fns";
 
-export const MongoBookingRepo = (): BookingRepo => ({
+export const BookingRepository = (): BookingRepo => ({
  
   async create(b) {
     const d = await BookingModel.create(b);
-    console.log("[repo] booking.create", String(d._id));
+    console.log("Booking Repository: book create", String(d._id));
     return { ...b, id: String(d._id), status: d.status };
   },
  
@@ -42,7 +42,7 @@ export const MongoBookingRepo = (): BookingRepo => ({
   async updateStatus(id, status) {
     const d = await BookingModel.findByIdAndUpdate(id, { status }, { new: true });
     if (!d) return null;
-    console.log("[repo] booking.updateStatus", id, status);
+    console.log("Booking Repository: update status after admin change status", id, status);
     return {
       id: String(d._id), carId: String(d.carId), userId: d.userId ? String(d.userId) : undefined,
       guestEmail: d.guestEmail, startDate: d.startDate, endDate: d.endDate, total: d.total,
@@ -52,7 +52,7 @@ export const MongoBookingRepo = (): BookingRepo => ({
   async editDates(id, patch) {
     const d = await BookingModel.findByIdAndUpdate(id, patch, { new: true });
     if (!d) return null;
-    console.log("[repo] booking.editDates", id, patch);
+    console.log("Booking Repository: Edit booking by admin", id, patch);
     return {
       id: String(d._id), carId: String(d.carId), userId: d.userId ? String(d.userId) : undefined,
       guestEmail: d.guestEmail, startDate: d.startDate, endDate: d.endDate, total: d.total,
