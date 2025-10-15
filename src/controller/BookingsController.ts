@@ -38,8 +38,8 @@ export class BookingsController {
   static async listMy(req: any, res: any, next: any) {
     try {
       const list = await runListMy({ userId: String(req.user!.sub) });
-      console.log("Booking Controller: listMy!!!", req.user!.sub, list.length);
-      res.status(201).json({ success: true, message :"display my booking", data:{list}});
+      console.log("COntorller listMy", req.user!.sub, list.length);
+      return res.status(200).json({ success: true, message: "My bookings", data: list });
     } catch (e) { next(e); }
   }
 }
